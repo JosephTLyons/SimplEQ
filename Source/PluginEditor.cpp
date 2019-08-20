@@ -64,7 +64,7 @@ void SimplEqAudioProcessorEditor::sliderValueChanged (Slider* slider)
     if (slider == &highPassFilterSlider)
         processor.highPassFrequency = highPassFilterSlider.getValue();
 
-    if (slider == &lowPassFilterSlider)
+    else if (slider == &lowPassFilterSlider)
         processor.lowPassFrequency = lowPassFilterSlider.getValue();
 }
 
