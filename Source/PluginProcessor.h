@@ -58,7 +58,11 @@ public:
     double highPassFrequency;
     double lowPassFrequency;
 
+    bool highPassBypassed;
+    bool lowPassBypassed;
+
 private:
+    // Private methods
     void highPassFilter (AudioBuffer<float>& buffer);
     void lowPassFilter  (AudioBuffer<float>& buffer);
     

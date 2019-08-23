@@ -17,7 +17,8 @@
 /**
 */
 class SimplEqAudioProcessorEditor  : public AudioProcessorEditor,
-                                     private Slider::Listener
+                                     private Slider::Listener,
+                                     private ToggleButton::Listener
 {
 public:
     SimplEqAudioProcessorEditor (SimplEqAudioProcessor&);
@@ -28,6 +29,7 @@ public:
     void resized() override;
 
     void sliderValueChanged (Slider* slider) override;
+    void buttonClicked (Button* button) override;
 
 private:
     void setupFrequencyKnob (Slider& slider,
@@ -35,6 +37,10 @@ private:
                              const double& startRange,
                              const double& endRange,
                              const double& increment);
+    
+    void setupBypassToggle (ToggleButton& toggle,
+                            const bool& initialState);
+    
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     SimplEqAudioProcessor& processor;
@@ -42,7 +48,11 @@ private:
     Slider highPassFilterSlider;
     Slider lowPassFilterSlider;
 
+    ToggleButton highPassFilterBypassToggle;
+    ToggleButton lowPassFilterBypassToggle;
+
     FlexBox knobBox;
+    FlexBox bypassBox;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimplEqAudioProcessorEditor)
 };

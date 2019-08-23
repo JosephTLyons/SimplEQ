@@ -26,6 +26,9 @@ SimplEqAudioProcessor::SimplEqAudioProcessor()
 {
     highPassFrequency = 1;
     lowPassFrequency = 22000;
+
+    highPassBypassed = false;
+    lowPassBypassed = false;
 }
 
 SimplEqAudioProcessor::~SimplEqAudioProcessor()
@@ -133,8 +136,11 @@ bool SimplEqAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) 
 
 void SimplEqAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-    highPassFilter (buffer);
-    lowPassFilter  (buffer);
+    if (! highPassBypassed)
+        highPassFilter (buffer);
+
+    if (! lowPassBypassed)
+        lowPassFilter  (buffer);
 }
 
 //==============================================================================

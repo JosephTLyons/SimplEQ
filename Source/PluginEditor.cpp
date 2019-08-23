@@ -29,6 +29,9 @@ SimplEqAudioProcessorEditor::SimplEqAudioProcessorEditor (SimplEqAudioProcessor&
                         500,
                         processor.lowPassFrequency,
                         0.1);
+
+    setupBypassToggle (highPassFilterBypassToggle, processor.highPassBypassed);
+    setupBypassToggle (lowPassFilterBypassToggle, processor.lowPassBypassed);
 }
 
 SimplEqAudioProcessorEditor::~SimplEqAudioProcessorEditor()
@@ -48,15 +51,13 @@ void SimplEqAudioProcessorEditor::resized()
     knobBox.flexDirection = FlexBox::Direction::row;
     knobBox.items.add (FlexItem (highPassFilterSlider).withFlex (1));
     knobBox.items.add (FlexItem (lowPassFilterSlider).withFlex (1));
+    knobBox.performLayout (getLocalBounds().removeFromTop (getHeight() / 2).toFloat());
 
-    float heightAdjustment = getHeight() * (3.0f / 8.0f);
-
-    Rectangle<float> knobBoxFrame = getLocalBounds()
-                                        .removeFromBottom (heightAdjustment)
-                                        .removeFromTop (heightAdjustment)
-                                        .toFloat();
-
-    knobBox.performLayout (knobBoxFrame);
+    bypassBox.flexDirection = FlexBox::Direction::row;
+    bypassBox.justifyContent = FlexBox::JustifyContent::spaceAround;
+    bypassBox.items.add (FlexItem (highPassFilterBypassToggle).withFlex (1));
+    bypassBox.items.add (FlexItem (lowPassFilterBypassToggle).withFlex (1));
+    bypassBox.performLayout(getLocalBounds().removeFromBottom (getHeight() / 2).toFloat());
 }
 
 void SimplEqAudioProcessorEditor::sliderValueChanged (Slider* slider)
@@ -66,6 +67,15 @@ void SimplEqAudioProcessorEditor::sliderValueChanged (Slider* slider)
 
     else if (slider == &lowPassFilterSlider)
         processor.lowPassFrequency = lowPassFilterSlider.getValue();
+}
+
+void SimplEqAudioProcessorEditor::buttonClicked (Button* button)
+{
+    if (button == &highPassFilterBypassToggle)
+        processor.highPassBypassed = highPassFilterBypassToggle.getToggleState();
+
+    else if (button == &lowPassFilterBypassToggle)
+        processor.lowPassBypassed = lowPassFilterBypassToggle.getToggleState();
 }
 
 void SimplEqAudioProcessorEditor::setupFrequencyKnob (Slider& slider,
@@ -87,4 +97,12 @@ void SimplEqAudioProcessorEditor::setupFrequencyKnob (Slider& slider,
     slider.addListener (this);
 
     addAndMakeVisible (slider);
+}
+
+void SimplEqAudioProcessorEditor::setupBypassToggle (ToggleButton& toggle,
+                                                     const bool& initialState)
+{
+    toggle.setToggleState (initialState, NotificationType::dontSendNotification);
+    toggle.addListener (this);
+    addAndMakeVisible (toggle);
 }
