@@ -102,5 +102,6 @@ void SimplEqAudioProcessorEditor::setupBypassToggle (ToggleButton& toggle,
 {
     toggle.setToggleState (initialState, NotificationType::dontSendNotification);
     toggle.addListener (this);
+    
     addAndMakeVisible (toggle);
 }
