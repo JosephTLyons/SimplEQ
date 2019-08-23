@@ -90,10 +90,8 @@ void SimplEqAudioProcessorEditor::setupFrequencyKnob (Slider& slider,
     slider.setPopupDisplayEnabled (false, false, this);
     slider.setSliderStyle  (Slider::SliderStyle::RotaryVerticalDrag);
     slider.setTextBoxStyle (Slider::TextEntryBoxPosition::TextBoxBelow,
-                            false, slider.getWidth() * 0.5, 25);
-    slider.setMouseDragSensitivity (50);
-    slider.setVelocityBasedMode (true);
-
+                            false, slider.getWidth() * 0.25, 25);
+    slider.setMouseDragSensitivity (300);
     slider.addListener (this);
 
     addAndMakeVisible (slider);
