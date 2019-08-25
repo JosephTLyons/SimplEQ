@@ -64,7 +64,7 @@ public:
 private:
     // Private methods
     void hiPassFilter (AudioBuffer<float>& buffer);
-    void loPassFilter  (AudioBuffer<float>& buffer);
+    void loPassFilter (AudioBuffer<float>& buffer);
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimplEqAudioProcessor)
