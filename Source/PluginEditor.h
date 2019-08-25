@@ -38,18 +38,17 @@ private:
                              const double& endRange,
                              const double& increment);
     
-    void setupBypassToggle (ToggleButton& toggle,
-                            const bool& initialState);
+    void setupBypassToggle (ToggleButton& toggle, const bool& initialState);
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     SimplEqAudioProcessor& processor;
 
-    Slider highPassFilterSlider;
-    Slider lowPassFilterSlider;
+    Slider hiPassFilterSlider;
+    Slider loPassFilterSlider;
 
-    ToggleButton highPassFilterBypassToggle;
-    ToggleButton lowPassFilterBypassToggle;
+    ToggleButton hiPassFilterBypassToggle;
+    ToggleButton loPassFilterBypassToggle;
 
     FlexBox knobBox;
     FlexBox bypassBox;

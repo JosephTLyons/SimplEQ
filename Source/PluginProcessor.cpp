@@ -24,11 +24,11 @@ SimplEqAudioProcessor::SimplEqAudioProcessor()
                        )
 #endif
 {
-    highPassFrequency = 1;
-    lowPassFrequency = 22000;
+    hiPassFrequency = 1;
+    loPassFrequency = 22000;
 
-    highPassBypassed = false;
-    lowPassBypassed = false;
+    hiPassBypassed = false;
+    loPassBypassed = false;
 }
 
 SimplEqAudioProcessor::~SimplEqAudioProcessor()
@@ -136,11 +136,11 @@ bool SimplEqAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) 
 
 void SimplEqAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-    if (! highPassBypassed)
-        highPassFilter (buffer);
+    if (! hiPassBypassed)
+        hiPassFilter (buffer);
 
-    if (! lowPassBypassed)
-        lowPassFilter  (buffer);
+    if (! loPassBypassed)
+        loPassFilter  (buffer);
 }
 
 //==============================================================================
@@ -175,20 +175,20 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new SimplEqAudioProcessor();
 }
 
-void SimplEqAudioProcessor::highPassFilter (AudioBuffer<float>& buffer)
+void SimplEqAudioProcessor::hiPassFilter (AudioBuffer<float>& buffer)
 {
-    iirFilterHighPassLeft.setCoefficients  (IIRCoefficients::makeHighPass (getSampleRate(), highPassFrequency));
-    iirFilterHighPassRight.setCoefficients (IIRCoefficients::makeHighPass (getSampleRate(), highPassFrequency));
+    iirFilterHiPassL.setCoefficients (IIRCoefficients::makeHighPass (getSampleRate(), hiPassFrequency));
+    iirFilterHiPassR.setCoefficients (IIRCoefficients::makeHighPass (getSampleRate(), hiPassFrequency));
 
-    iirFilterHighPassLeft.processSamples  (buffer.getWritePointer (0), buffer.getNumSamples());
-    iirFilterHighPassRight.processSamples (buffer.getWritePointer (1), buffer.getNumSamples());
+    iirFilterHiPassL.processSamples (buffer.getWritePointer (0), buffer.getNumSamples());
+    iirFilterHiPassR.processSamples (buffer.getWritePointer (1), buffer.getNumSamples());
 }
 
-void SimplEqAudioProcessor::lowPassFilter (AudioBuffer<float>& buffer)
+void SimplEqAudioProcessor::loPassFilter (AudioBuffer<float>& buffer)
 {
-    iirFilterLowPassLeft.setCoefficients  (IIRCoefficients::makeLowPass (getSampleRate(), lowPassFrequency));
-    iirFilterLowPassRight.setCoefficients (IIRCoefficients::makeLowPass (getSampleRate(), lowPassFrequency));
+    iirFilterLoPassL.setCoefficients (IIRCoefficients::makeLowPass (getSampleRate(), loPassFrequency));
+    iirFilterLoPassR.setCoefficients (IIRCoefficients::makeLowPass (getSampleRate(), loPassFrequency));
 
-    iirFilterLowPassLeft.processSamples  (buffer.getWritePointer (0), buffer.getNumSamples());
-    iirFilterLowPassRight.processSamples (buffer.getWritePointer (1), buffer.getNumSamples());
+    iirFilterLoPassL.processSamples (buffer.getWritePointer (0), buffer.getNumSamples());
+    iirFilterLoPassR.processSamples (buffer.getWritePointer (1), buffer.getNumSamples());
 }

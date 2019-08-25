@@ -55,23 +55,23 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    double highPassFrequency;
-    double lowPassFrequency;
+    double hiPassFrequency;
+    double loPassFrequency;
 
-    bool highPassBypassed;
-    bool lowPassBypassed;
+    bool hiPassBypassed;
+    bool loPassBypassed;
 
 private:
     // Private methods
-    void highPassFilter (AudioBuffer<float>& buffer);
-    void lowPassFilter  (AudioBuffer<float>& buffer);
+    void hiPassFilter (AudioBuffer<float>& buffer);
+    void loPassFilter  (AudioBuffer<float>& buffer);
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimplEqAudioProcessor)
 
-    IIRFilter iirFilterHighPassLeft;
-    IIRFilter iirFilterHighPassRight;
+    IIRFilter iirFilterHiPassL;
+    IIRFilter iirFilterHiPassR;
 
-    IIRFilter iirFilterLowPassLeft;
-    IIRFilter iirFilterLowPassRight;
+    IIRFilter iirFilterLoPassL;
+    IIRFilter iirFilterLoPassR;
 };
