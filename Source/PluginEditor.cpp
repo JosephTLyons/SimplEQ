@@ -48,14 +48,30 @@ void SimplEqAudioProcessorEditor::paint (Graphics& g)
 void SimplEqAudioProcessorEditor::resized()
 {
     knobBox.flexDirection = FlexBox::Direction::row;
-    knobBox.items.add (FlexItem (hiPassFilterSlider).withFlex (1));
-    knobBox.items.add (FlexItem (loPassFilterSlider).withFlex (1));
+    knobBox.justifyContent = FlexBox::JustifyContent::spaceAround;
+    knobBox.alignContent = FlexBox::AlignContent::center;
+    knobBox.items.add (FlexItem (hiPassFilterSlider)
+                       .withMinHeight ((getHeight() / 2) * 0.90)
+                       .withMaxHeight (getHeight() / 2)
+                       .withFlex (1));
+    knobBox.items.add (FlexItem (loPassFilterSlider)
+                       .withMinHeight ((getHeight() / 2) * 0.90)
+                       .withMaxHeight (getHeight() / 2)
+                       .withFlex (1));
 
     bypassBox.flexDirection = FlexBox::Direction::row;
     bypassBox.justifyContent = FlexBox::JustifyContent::spaceAround;
-//    bypassBox.alignContent = FlexBox::AlignContent::center;
-    bypassBox.items.add (FlexItem (hiPassFilterBypassToggle).withMaxWidth (100.0).withMaxHeight (30.0).withFlex (1));
-    bypassBox.items.add (FlexItem (loPassFilterBypassToggle).withMaxWidth (100.0).withMaxHeight (30.0).withFlex (1));
+    bypassBox.alignContent = FlexBox::AlignContent::center;
+    bypassBox.items.add (FlexItem (hiPassFilterBypassToggle)
+                         .withMinWidth (30)
+                         .withMaxWidth (100)
+                         .withMinHeight (30)
+                         .withFlex (1));
+    bypassBox.items.add (FlexItem (loPassFilterBypassToggle)
+                         .withMinWidth (30)
+                         .withMaxWidth (100)
+                         .withMinHeight (30)
+                         .withFlex (1));
 
     mainBox.flexDirection = FlexBox::Direction::column;
     mainBox.items.add (FlexItem (knobBox).withFlex (0.5));
