@@ -50,15 +50,19 @@ void SimplEqAudioProcessorEditor::resized()
     knobBox.flexDirection = FlexBox::Direction::row;
     knobBox.items.add (FlexItem (hiPassFilterSlider).withFlex (1));
     knobBox.items.add (FlexItem (loPassFilterSlider).withFlex (1));
-    knobBox.performLayout (getLocalBounds().removeFromTop (getHeight() / 2).toFloat());
+//    knobBox.performLayout (getLocalBounds().removeFromTop (getHeight() / 2).toFloat());
 
     bypassBox.flexDirection = FlexBox::Direction::row;
-    bypassBox.items.add (FlexItem (hiPassFilterBypassToggle).withFlex (1));
-    bypassBox.items.add (FlexItem (loPassFilterBypassToggle).withFlex (1));
-    bypassBox.performLayout(getLocalBounds().removeFromBottom (getHeight() / 2).toFloat());
+    bypassBox.justifyContent = FlexBox::JustifyContent::spaceAround;
+    bypassBox.alignContent = FlexBox::AlignContent::center;
+    bypassBox.items.add (FlexItem (hiPassFilterBypassToggle).withMaxWidth (100.0).withMaxHeight (30.0).withFlex (1));
+    bypassBox.items.add (FlexItem (loPassFilterBypassToggle).withMaxWidth (100.0).withMaxHeight (30.0).withFlex (1));
 
-    Rectangle<int> rect = getBounds();
-    Logger::writeToLog(String (rect.getAspectRatio()));
+//    bypassBox.performLayout (getLocalBounds().removeFromBottom (getHeight() / 2).toFloat());
+    mainBox.flexDirection = FlexBox::Direction::column;
+    mainBox.items.add (FlexItem (knobBox).withFlex (0.5));
+    mainBox.items.add (FlexItem (bypassBox).withFlex (0.5));
+    mainBox.performLayout (getLocalBounds().toFloat());
 }
 
 void SimplEqAudioProcessorEditor::sliderValueChanged (Slider* slider)

@@ -55,6 +55,7 @@ private:
 
     FlexBox knobBox;
     FlexBox bypassBox;
+    FlexBox mainBox;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimplEqAudioProcessorEditor)
 };
