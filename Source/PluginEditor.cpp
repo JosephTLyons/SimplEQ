@@ -15,7 +15,7 @@
 SimplEqAudioProcessorEditor::SimplEqAudioProcessorEditor (SimplEqAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
-    setSize (800, 200);
+    setSize (800, 250);
     setResizable (true, true);
 
     setupFrequencyKnob (hiPassFilterSlider,
