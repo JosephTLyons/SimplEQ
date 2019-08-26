@@ -73,10 +73,16 @@ void SimplEqAudioProcessorEditor::sliderValueChanged (Slider* slider)
 void SimplEqAudioProcessorEditor::buttonClicked (Button* button)
 {
     if (button == &hiPassFilterBypassToggle)
+    {
         processor.hiPassBypassed = hiPassFilterBypassToggle.getToggleState();
+        setToggleState (button);
+    }
 
     else if (button == &loPassFilterBypassToggle)
+    {
         processor.loPassBypassed = loPassFilterBypassToggle.getToggleState();
+        setToggleState (button);
+    }
 }
 
 void SimplEqAudioProcessorEditor::setupFrequencyKnob (Slider& slider,
@@ -98,10 +104,22 @@ void SimplEqAudioProcessorEditor::setupFrequencyKnob (Slider& slider,
     addAndMakeVisible (slider);
 }
 
-void SimplEqAudioProcessorEditor::setupBypassToggle (ToggleButton& toggle, const bool& initialState)
+void SimplEqAudioProcessorEditor::setupBypassToggle (TextButton& textButton,
+                                                     const bool& initialState)
 {
-    toggle.setToggleState (initialState, NotificationType::dontSendNotification);
-    toggle.addListener (this);
+    textButton.setClickingTogglesState (true);
+    textButton.setToggleState (initialState, NotificationType::dontSendNotification);
+    setToggleState (&textButton);
+    textButton.addListener (this);
     
-    addAndMakeVisible (toggle);
+    addAndMakeVisible (textButton);
+}
+
+void SimplEqAudioProcessorEditor::setToggleState (Button* button)
+{
+    if (button->getToggleState())
+        button->setButtonText ("Disabled");
+
+    else
+        button->setButtonText ("Enabled");
 }

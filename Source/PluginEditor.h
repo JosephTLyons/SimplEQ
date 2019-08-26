@@ -38,7 +38,10 @@ private:
                              const double& endRange,
                              const double& increment);
     
-    void setupBypassToggle (ToggleButton& toggle, const bool& initialState);
+    void setupBypassToggle (TextButton& textButton,
+                            const bool& initialState);
+
+    void setToggleState (Button* button);
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -47,8 +50,8 @@ private:
     Slider hiPassFilterSlider;
     Slider loPassFilterSlider;
 
-    ToggleButton hiPassFilterBypassToggle;
-    ToggleButton loPassFilterBypassToggle;
+    TextButton hiPassFilterBypassToggle;
+    TextButton loPassFilterBypassToggle;
 
     FlexBox knobBox;
     FlexBox bypassBox;
