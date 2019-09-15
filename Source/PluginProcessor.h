@@ -69,8 +69,11 @@ private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimplEqAudioProcessor)
 
-    IIRFilter iirFilterHiPassL;
-    IIRFilter iirFilterHiPassR;
+    IIRFilter iirFilterHiPassL1;
+    IIRFilter iirFilterHiPassR1;
+
+    IIRFilter iirFilterHiPassL2;
+    IIRFilter iirFilterHiPassR2;
 
     IIRFilter iirFilterLoPassL;
     IIRFilter iirFilterLoPassR;

@@ -15,7 +15,7 @@
 SimplEqAudioProcessorEditor::SimplEqAudioProcessorEditor (SimplEqAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
-    setSize (800, 250);
+    setSize (500, 250);
     setResizable (true, true);
 
     setupFrequencyKnob (hiPassFilterSlider,
@@ -43,6 +43,8 @@ void SimplEqAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+//    g.setColour (Colours::white);
+//    g.drawLine (0, getHeight() / 2, getWidth(), getHeight() / 2);
 }
 
 void SimplEqAudioProcessorEditor::resized()
@@ -53,10 +55,12 @@ void SimplEqAudioProcessorEditor::resized()
     knobBox.items.add (FlexItem (hiPassFilterSlider)
                        .withMinHeight ((getHeight() / 2) * 0.90)
                        .withMaxHeight (getHeight() / 2)
+                       .withMinWidth (100)
                        .withFlex (1));
     knobBox.items.add (FlexItem (loPassFilterSlider)
                        .withMinHeight ((getHeight() / 2) * 0.90)
                        .withMaxHeight (getHeight() / 2)
+                       .withMinWidth (100)
                        .withFlex (1));
 
     bypassBox.flexDirection = FlexBox::Direction::row;
@@ -74,8 +78,8 @@ void SimplEqAudioProcessorEditor::resized()
                          .withFlex (1));
 
     mainBox.flexDirection = FlexBox::Direction::column;
-    mainBox.items.add (FlexItem (knobBox).withFlex (0.5));
-    mainBox.items.add (FlexItem (bypassBox).withFlex (0.5));
+    mainBox.items.add (FlexItem (knobBox).withFlex (0.5).withMargin ({70, 0, 0, 0}));
+    mainBox.items.add (FlexItem (bypassBox).withFlex (0.5).withMargin ({35, 0, 0, 0}));
     mainBox.performLayout (getLocalBounds().toFloat());
 }
 
@@ -118,6 +122,7 @@ void SimplEqAudioProcessorEditor::setupFrequencyKnob (Slider& slider,
                             false, slider.getWidth() * 0.25, 25);
     slider.setMouseDragSensitivity (300);
     slider.addListener (this);
+//    slider.setSkewFactorFromMidPoint((slider.getMinimum() + slider.getMaximum()) / 2);
 
     addAndMakeVisible (slider);
 }

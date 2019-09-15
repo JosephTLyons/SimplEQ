@@ -177,11 +177,19 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 
 void SimplEqAudioProcessor::hiPassFilter (AudioBuffer<float>& buffer)
 {
-    iirFilterHiPassL.setCoefficients (IIRCoefficients::makeHighPass (getSampleRate(), hiPassFrequency));
-    iirFilterHiPassR.setCoefficients (IIRCoefficients::makeHighPass (getSampleRate(), hiPassFrequency));
+    iirFilterHiPassL1.setCoefficients (IIRCoefficients::makeHighPass (getSampleRate(), hiPassFrequency));
+    iirFilterHiPassR1.setCoefficients (IIRCoefficients::makeHighPass (getSampleRate(), hiPassFrequency));
 
-    iirFilterHiPassL.processSamples (buffer.getWritePointer (0), buffer.getNumSamples());
-    iirFilterHiPassR.processSamples (buffer.getWritePointer (1), buffer.getNumSamples());
+    iirFilterHiPassL1.processSamples (buffer.getWritePointer (0), buffer.getNumSamples());
+    iirFilterHiPassR1.processSamples (buffer.getWritePointer (1), buffer.getNumSamples());
+
+
+
+    iirFilterHiPassL2.setCoefficients (IIRCoefficients::makeHighPass (getSampleRate(), hiPassFrequency));
+    iirFilterHiPassR2.setCoefficients (IIRCoefficients::makeHighPass (getSampleRate(), hiPassFrequency));
+
+    iirFilterHiPassL2.processSamples (buffer.getWritePointer (0), buffer.getNumSamples());
+    iirFilterHiPassR2.processSamples (buffer.getWritePointer (1), buffer.getNumSamples());
 }
 
 void SimplEqAudioProcessor::loPassFilter (AudioBuffer<float>& buffer)
